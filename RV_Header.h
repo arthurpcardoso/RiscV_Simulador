@@ -63,3 +63,5 @@ enum REGISTERS {
     S8=24,	S9=25,  S10=26,	S11=27,
     T3=28,	T4=29,	T5=30,	T6=31
 };
+
+enum INSTRUCTIONS ins_code;

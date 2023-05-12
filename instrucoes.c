@@ -38,3 +38,54 @@ void sb(uint32_t address, int32_t kte, int8_t dado){
 void sw(uint32_t address, int32_t kte, int32_t dado){
     mem[(address + kte)/4] = dado;
 };
+
+void add(int32_t rs1, int32_t rs2, int32_t rd){
+    reg[rd] = reg[rs1] + reg[rs2];
+};
+
+void addi(int32_t rs1, int32_t imm12_i, int32_t rd){
+    reg[rd] = reg[rs1] + imm12_i;
+};
+
+void and(int32_t rs1, int32_t rs2, int32_t rd){
+    reg[rd] = reg[rs1] & reg[rs2];
+};
+
+void andi(int32_t rs1, int32_t imm12_i, int32_t rd){
+    reg[rd] = reg[rs1] & imm12_i;
+};
+
+void auipc(int32_t imm20_u, int32_t rd){
+    reg[rd] = pc + imm20_u;
+};
+
+void beq(int32_t rs1, int32_t rs2, int32_t imm13){
+    if(reg[rs1] == reg[rs2]){
+        pc = pc + imm13;
+    }
+};
+
+void bne(int32_t rs1, int32_t rs2, int32_t imm13){
+    if(reg[rs1] != reg[rs2]){
+        pc = pc + imm13;
+    }
+};
+
+void bge(int32_t rs1, int32_t rs2, int32_t imm13){
+    if(reg[rs1] >= reg[rs2]){
+        pc = pc + imm13;
+    }
+};
+
+void bgeu(int32_t rs1, int32_t rs2, int32_t imm13){
+    if(reg[rs1] >= reg[rs2]){
+        pc = pc + imm13;
+    }
+};
+
+void blt(int32_t rs1, int32_t rs2, int32_t imm13){
+    if(reg[rs1] < reg[rs2]){
+        pc = pc + imm13;
+    }
+};
+

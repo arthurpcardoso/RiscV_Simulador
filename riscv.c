@@ -9,6 +9,10 @@ int main() {
 
     load_mem("code.bin", 0x0);
     load_mem("data.bin", 0x2000);
+
+    init();
+
+    fetch();
     
     return 0;
 }
