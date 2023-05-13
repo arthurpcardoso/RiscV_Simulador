@@ -7,11 +7,10 @@
 #include <stdlib.h>
 
 #include "globals.h"
-#include "riscv.h"
 #include "memoria.h"
+#include "registradores.h"
 #include "riscv_func.h"
 #include "RV_Header.h"
-#include "registradores.h"
 #include "instrucoes.h"
 
 //
@@ -92,7 +91,68 @@ void step() {
     execute();
 }
 
-void execute() {};
+void execute() {
+    switch (ins_code)
+    {
+    case I_add:
+        add(rs1,rs2,rd);
+    case I_addi:
+        addi(rs1,imm32,rd);
+    case I_and:
+        and(rs1,rs2,rd);
+    case I_andi:
+        andi(rs1,imm32,rd);
+    case I_auipc:
+        auipc(imm32,rd);
+    case I_beq:
+        beq(rs1,rs2,imm32);
+    case I_bge:
+        bge(rs1,rs2,imm32);
+    case I_bgeu:
+        bgeu(rs1,rs2,imm32);
+    case I_blt:
+        blt(rs1,rs2,imm32);
+    case I_bltu:
+        bltu(rs1,rs2,imm32);
+    case I_bne:
+        bne(rs1,rs2,imm32);
+    case I_jal:
+        jal(imm32);
+    case I_jalr:
+        jalr(rs1,imm32,rd);
+    case I_lb:
+        lb(rs1,imm32);
+    case I_lw:
+        lw(rs1,imm32);
+    case I_lbu:
+        lbu(rs1,imm32);
+    case I_or:
+        or(rs1,rs2,rd);
+    case I_ori:
+        ori(rs1,imm32,rd);
+    case I_sb:
+        sb(rs1,rs2,imm32);
+    case I_sw:
+        sw(rs1,rs2,imm32);
+    case I_slli:
+        slli(rs1,shamt,rd);
+    case I_slt:
+        slt(rs1,rs2,rd);
+    case I_srai:
+        srai(rs1,shamt,rd);
+    case I_srli:    
+        srli(rs1,shamt,rd);
+    case I_sub:
+        sub(rs1,rs2,rd);
+    case I_xor:
+        xor(rs1,rs2,rd);
+    case I_ecall:
+        ecall();
+    
+    default:
+        break;
+    }
+}
 
 /* void run() {
     while (pc < CODE_LIMIT && !stop_prg) run();

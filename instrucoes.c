@@ -2,8 +2,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "instrucoes.h"
 #include "memoria.h"
+#include "registradores.h"
+#include "instrucoes.h"
 
 int32_t lb(uint32_t address, int32_t kte){
     int32_t tmp;
@@ -40,125 +41,125 @@ void sw(uint32_t address, int32_t kte, int32_t dado){
 };
 
 void add(int32_t rs1, int32_t rs2, int32_t rd){
-    reg[rd] = reg[rs1] + reg[rs2];
+    breg[rd] = breg[rs1] + breg[rs2];
 };
 
 void addi(int32_t rs1, int32_t imm12_i, int32_t rd){
-    reg[rd] = reg[rs1] + imm12_i;
+    breg[rd] = breg[rs1] + imm12_i;
 };
 
 void and(int32_t rs1, int32_t rs2, int32_t rd){
-    reg[rd] = reg[rs1] & reg[rs2];
+    breg[rd] = breg[rs1] & breg[rs2];
 };
 
 void andi(int32_t rs1, int32_t imm12_i, int32_t rd){
-    reg[rd] = reg[rs1] & imm12_i;
+    breg[rd] = breg[rs1] & imm12_i;
 };
 
 void auipc(int32_t imm20_u, int32_t rd){
-    reg[rd] = pc + imm20_u;
+    breg[rd] = pc + imm20_u;
 };
 
 void beq(int32_t rs1, int32_t rs2, int32_t imm13){
-    if(reg[rs1] == reg[rs2]){
+    if(breg[rs1] == breg[rs2]){
         pc = pc + imm13;
     }
 };
 
 void bne(int32_t rs1, int32_t rs2, int32_t imm13){
-    if(reg[rs1] != reg[rs2]){
+    if(breg[rs1] != breg[rs2]){
         pc = pc + imm13;
     }
 };
 
 void bge(int32_t rs1, int32_t rs2, int32_t imm13){
-    if(reg[rs1] >= reg[rs2]){
+    if(breg[rs1] >= breg[rs2]){
         pc = pc + imm13;
     }
 };
 
 void bgeu(int32_t rs1, int32_t rs2, int32_t imm13){
-    if(reg[rs1] >= reg[rs2]){
+    if(breg[rs1] >= breg[rs2]){
         pc = pc + imm13;
     }
 };
 
 void blt(int32_t rs1, int32_t rs2, int32_t imm13){
-    if(reg[rs1] < reg[rs2]){
+    if(breg[rs1] < breg[rs2]){
         pc = pc + imm13;
     }
 };
 
 void bltu(int32_t rs1, int32_t rs2, int32_t imm13){
-    if(reg[rs1] < reg[rs2]){
+    if(breg[rs1] < breg[rs2]){
         pc = pc + imm13;
     }
 };
 
 void jal(int32_t imm21){
-    reg[1] = pc + 4;
+    breg[1] = pc + 4;
     pc = pc + imm21;
 };
 
 void jalr(int32_t rs1, int32_t imm12_i, int32_t rd){
-    reg[rd] = pc + 4;
-    pc = reg[rs1] + imm12_i;
+    breg[rd] = pc + 4;
+    pc = breg[rs1] + imm12_i;
 };
 
-void or (int32_t rs1, int32_t rs2, int32_t rd){
-    reg[rd] = reg[rs1] | reg[rs2];
+void or(int32_t rs1, int32_t rs2, int32_t rd){
+    breg[rd] = breg[rs1] | breg[rs2];
 };
 
 void lui(int32_t imm20_u, int32_t rd){
-    reg[rd] = imm20_u;
+    breg[rd] = imm20_u;
 };
 
 void slt(int32_t rs1, int32_t rs2, int32_t rd){
-    if(reg[rs1] < reg[rs2]){
-        reg[rd] = 1;
+    if(breg[rs1] < breg[rs2]){
+        breg[rd] = 1;
     }else{
-        reg[rd] = 0;
+        breg[rd] = 0;
     }
 };
 
 void sltu(int32_t rs1, int32_t rs2, int32_t rd){
-    if(reg[rs1] < reg[rs2]){
-        reg[rd] = 1;
+    if(breg[rs1] < breg[rs2]){
+        breg[rd] = 1;
     }else{
-        reg[rd] = 0;
+        breg[rd] = 0;
     }
 };
 
 void ori(int32_t rs1, int32_t imm12_i, int32_t rd){
-    reg[rd] = reg[rs1] | imm12_i;
+    breg[rd] = breg[rs1] | imm12_i;
 };
 
 void slli(int32_t rs1, int32_t shamt6, int32_t rd){
-    reg[rd] = reg[rs1] << shamt6;
+    breg[rd] = breg[rs1] << shamt6;
 };
 
 void srai(int32_t rs1, int32_t shamt6, int32_t rd){
-    reg[rd] = reg[rs1] >> shamt6;
+    breg[rd] = breg[rs1] >> shamt6;
 };
 
-void slri(int32_t rs1, int32_t shamt6, int32_t rd){
-    reg[rd] = reg[rs1] >> shamt6;
+void srli(int32_t rs1, int32_t shamt6, int32_t rd){
+    breg[rd] = breg[rs1] >> shamt6;
 };
 
 void sub(int32_t rs1, int32_t rs2, int32_t rd){
-    reg[rd] = reg[rs1] - reg[rs2];
+    breg[rd] = breg[rs1] - breg[rs2];
 }; 
 
-void xori(int32_t rs1, int32_t imm12_i, int32_t rd){
-    reg[rd] = reg[rs1] ^ imm12_i;
+void xor(int32_t rs1, int32_t rs2, int32_t rd){
+    breg[rd] = breg[rs1] ^ breg[rs2];
 };
 
 void ecall(){
-    if(reg[17] == 1){
-        printf("%d", reg[10]);
-    }else if(reg[17] == 4){
-        printf("%s", &mem[reg[10]]);
-    }else if(reg[17] == 10){
+    if(breg[17] == 1){
+        printf("%d", breg[10]);
+    }else if(breg[17] == 4){
+        printf("%s", &mem[breg[10]]);
+    }else if(breg[17] == 10){
         exit(0);
     }
 };

@@ -11,13 +11,13 @@
 // banco de registradores do RV
 //
 
-int32_t breg[32];
+extern int32_t breg[32];
 
 //
 // registradores especiais
 //
 
-uint32_t	pc,				// contador de programa
+extern uint32_t	pc,				// contador de programa
             sp,				// stack pointer
             gp,				// global pointer
             ri;				// registrador de intrucao
@@ -33,7 +33,7 @@ uint32_t	pc,				// contador de programa
 // Formato U:  |               imm[31:12]               | rd | opcode |
 // Formato UJ: | imm[20] imm[10:1] imm[11] imm[19:12]   | rd | opcode |
 
-uint32_t	opcode,		// codigo da operacao
+extern uint32_t	opcode,		// codigo da operacao
             rs1,		// indice registrador rs
             rs2,		// indice registrador rt
             rd,			// indice registrador rd
@@ -41,7 +41,7 @@ uint32_t	opcode,		// codigo da operacao
             funct3,		// campos auxiliares
             funct7;		// constante instrucao tipo J
 
-int32_t		imm12_i,	// constante 12 bits
+extern int32_t		imm12_i,	// constante 12 bits
             imm12_s,				// constante 12 bits
             imm13,					// constante 13 bits
             imm20_u,				// constante 20 bis mais significativos
