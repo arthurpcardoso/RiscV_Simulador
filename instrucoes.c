@@ -89,3 +89,76 @@ void blt(int32_t rs1, int32_t rs2, int32_t imm13){
     }
 };
 
+void bltu(int32_t rs1, int32_t rs2, int32_t imm13){
+    if(reg[rs1] < reg[rs2]){
+        pc = pc + imm13;
+    }
+};
+
+void jal(int32_t imm21){
+    reg[1] = pc + 4;
+    pc = pc + imm21;
+};
+
+void jalr(int32_t rs1, int32_t imm12_i, int32_t rd){
+    reg[rd] = pc + 4;
+    pc = reg[rs1] + imm12_i;
+};
+
+void or (int32_t rs1, int32_t rs2, int32_t rd){
+    reg[rd] = reg[rs1] | reg[rs2];
+};
+
+void lui(int32_t imm20_u, int32_t rd){
+    reg[rd] = imm20_u;
+};
+
+void slt(int32_t rs1, int32_t rs2, int32_t rd){
+    if(reg[rs1] < reg[rs2]){
+        reg[rd] = 1;
+    }else{
+        reg[rd] = 0;
+    }
+};
+
+void sltu(int32_t rs1, int32_t rs2, int32_t rd){
+    if(reg[rs1] < reg[rs2]){
+        reg[rd] = 1;
+    }else{
+        reg[rd] = 0;
+    }
+};
+
+void ori(int32_t rs1, int32_t imm12_i, int32_t rd){
+    reg[rd] = reg[rs1] | imm12_i;
+};
+
+void slli(int32_t rs1, int32_t shamt6, int32_t rd){
+    reg[rd] = reg[rs1] << shamt6;
+};
+
+void srai(int32_t rs1, int32_t shamt6, int32_t rd){
+    reg[rd] = reg[rs1] >> shamt6;
+};
+
+void slri(int32_t rs1, int32_t shamt6, int32_t rd){
+    reg[rd] = reg[rs1] >> shamt6;
+};
+
+void sub(int32_t rs1, int32_t rs2, int32_t rd){
+    reg[rd] = reg[rs1] - reg[rs2];
+}; 
+
+void xori(int32_t rs1, int32_t imm12_i, int32_t rd){
+    reg[rd] = reg[rs1] ^ imm12_i;
+};
+
+void ecall(){
+    if(reg[17] == 1){
+        printf("%d", reg[10]);
+    }else if(reg[17] == 4){
+        printf("%s", &mem[reg[10]]);
+    }else if(reg[17] == 10){
+        exit(0);
+    }
+};
