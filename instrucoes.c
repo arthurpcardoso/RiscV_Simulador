@@ -61,42 +61,50 @@ void auipc(int32_t imm20_u, int32_t rd){
 };
 
 void beq(int32_t rs1, int32_t rs2, int32_t imm13){
+    printf("beq\n");
     if(breg[rs1] == breg[rs2]){
+        pc -= 4;
         pc = pc + imm13;
     }
 };
 
 void bne(int32_t rs1, int32_t rs2, int32_t imm13){
     if(breg[rs1] != breg[rs2]){
+        pc -= 4;
         pc = pc + imm13;
     }
 };
 
 void bge(int32_t rs1, int32_t rs2, int32_t imm13){
     if(breg[rs1] >= breg[rs2]){
+        pc -= 4;
         pc = pc + imm13;
     }
 };
 
 void bgeu(int32_t rs1, int32_t rs2, int32_t imm13){
     if(breg[rs1] >= breg[rs2]){
+        pc -= 4;
         pc = pc + imm13;
     }
 };
 
 void blt(int32_t rs1, int32_t rs2, int32_t imm13){
     if(breg[rs1] < breg[rs2]){
+        pc -= 4;
         pc = pc + imm13;
     }
 };
 
 void bltu(int32_t rs1, int32_t rs2, int32_t imm13){
     if(breg[rs1] < breg[rs2]){
+        pc -= 4;
         pc = pc + imm13;
     }
 };
 
 void jal(int32_t imm21){
+    pc -= 4;
     breg[1] = pc + 4;
     pc = pc + imm21;
 };

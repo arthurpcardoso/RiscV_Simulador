@@ -36,6 +36,7 @@ void fetch() {
 }
 
 void decode() {
+
     int32_t tmp;
 
     opcode = ri & 0x7F;
@@ -61,7 +62,7 @@ void decode() {
     tmp = get_field(ri, 21, 0x3FF);
     imm21 = set_field(imm21, 1, 0x3FF, tmp);
     imm21 = imm21 & ~1;                    // zero bit 0
-    ins_code = get_instr_code(opcode, funct3, funct7);   
+    ins_code = get_instr_code(opcode, funct3, funct7);
     imm32 = get_imm32(get_i_format(opcode, funct3, funct7));
 }
 
@@ -92,62 +93,90 @@ void step() {
 }
 
 void execute() {
+
     switch (ins_code)
     {
     case I_add:
         add(rs1,rs2,rd);
+        break;
     case I_addi:
         addi(rs1,imm32,rd);
+        break;
     case I_and:
         and(rs1,rs2,rd);
+        break;
     case I_andi:
         andi(rs1,imm32,rd);
+        break;
     case I_auipc:
         auipc(imm32,rd);
+        break;
     case I_beq:
         beq(rs1,rs2,imm32);
+        break;
     case I_bge:
         bge(rs1,rs2,imm32);
+        break;
     case I_bgeu:
         bgeu(rs1,rs2,imm32);
+        break;
     case I_blt:
         blt(rs1,rs2,imm32);
+        break;
     case I_bltu:
         bltu(rs1,rs2,imm32);
+        break;
     case I_bne:
         bne(rs1,rs2,imm32);
+        break;
     case I_jal:
         jal(imm32);
+        break;
     case I_jalr:
         jalr(rs1,imm32,rd);
+        break;
     case I_lb:
         lb(rs1,imm32);
+        break;
     case I_lw:
         lw(rs1,imm32);
+        break;
     case I_lbu:
         lbu(rs1,imm32);
+        break;
     case I_or:
         or(rs1,rs2,rd);
+        break;
     case I_ori:
         ori(rs1,imm32,rd);
+        break;
     case I_sb:
         sb(rs1,rs2,imm32);
+        break;
     case I_sw:
         sw(rs1,rs2,imm32);
+        break;
     case I_slli:
         slli(rs1,shamt,rd);
+        break;
     case I_slt:
         slt(rs1,rs2,rd);
+        break;
     case I_srai:
         srai(rs1,shamt,rd);
+        break;
     case I_srli:    
         srli(rs1,shamt,rd);
+        break;
     case I_sub:
         sub(rs1,rs2,rd);
+        break;
     case I_xor:
         xor(rs1,rs2,rd);
+        break;
     case I_ecall:
         ecall();
+        break;
     
     default:
         break;

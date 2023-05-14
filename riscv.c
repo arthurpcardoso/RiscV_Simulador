@@ -11,8 +11,20 @@ int main() {
     load_mem("data.bin", 0x2000);
 
     init();
+    
+    step();
+    step();
+    step();
+    step();
+    step();
+    step();
+    step();
+    step();
+    step();
+    step();
+    step();
+    
 
-    fetch();
     
     return 0;
 }
