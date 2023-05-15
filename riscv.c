@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "riscv_func.h"
+#include "registradores.h"
 
 int main() {
     printf("Iniciando!\n");
@@ -11,20 +12,7 @@ int main() {
     load_mem("data.bin", 0x2000);
 
     init();
-    
-    step();
-    step();
-    step();
-    step();
-    step();
-    step();
-    step();
-    step();
-    step();
-    step();
-    step();
-    
-
+    run();
     
     return 0;
 }

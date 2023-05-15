@@ -2,6 +2,8 @@
 // Created by Ricardo Jacobi on 18/11/22.
 //
 
+#define CODE_LIMIT 0x3f1
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -28,11 +30,9 @@ void init() {
 void fetch() {
     ri = lw(pc, 0);                         
     pc = pc + 4;
-    
-    printf("%x",ri);
-    printf("\n");
-    printf("%x",pc);
-    printf("\n");
+    breg[0] = 0;                            // registrador zero sempre zero
+
+    //printf("%x\n", ri);
 }
 
 void decode() {
@@ -174,6 +174,9 @@ void execute() {
     case I_xor:
         xor(rs1,rs2,rd);
         break;
+    case I_lui:
+        lui(imm32,rd);
+        break;
     case I_ecall:
         ecall();
         break;
@@ -183,9 +186,13 @@ void execute() {
     }
 }
 
-/* void run() {
-    while (pc < CODE_LIMIT && !stop_prg) run();
-} */
+void run() {
+    int i = 0;
+    while (i < 455) {
+        step();
+        i += 1;
+    }
+}
 
 int32_t get_imm32(enum FORMATS iformat) {
     switch (iformat) {

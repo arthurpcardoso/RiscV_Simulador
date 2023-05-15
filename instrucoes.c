@@ -61,7 +61,6 @@ void auipc(int32_t imm20_u, int32_t rd){
 };
 
 void beq(int32_t rs1, int32_t rs2, int32_t imm13){
-    printf("beq\n");
     if(breg[rs1] == breg[rs2]){
         pc -= 4;
         pc = pc + imm13;
@@ -164,10 +163,25 @@ void xor(int32_t rs1, int32_t rs2, int32_t rd){
 
 void ecall(){
     if(breg[17] == 1){
-        printf("%d", breg[10]);
+        printint(10);
     }else if(breg[17] == 4){
-        printf("%s", &mem[breg[10]]);
+        printstring(breg[10]);
     }else if(breg[17] == 10){
         exit(0);
     }
+};
+
+void printstring(uint32_t address){
+    address -= 4;
+    int32_t tmp;
+    tmp = lb(address, 0);
+    while(tmp != 0){
+        printf("%c", tmp);
+        address++;
+        tmp = lb(address, 0);
+    }
+};
+
+printint(int rs1){
+    printf("%d", breg[rs1]);
 };
